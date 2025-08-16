@@ -4,137 +4,90 @@ import (
 	"fmt"
 )
 
+type Person struct {
+	name string
+	age  int
+}
+
 func main() {
-	age := 12
+	person := Person{"Ian", 30}
 
-	if age >= 20 {
-		fmt.Println("you are an adult")
-	} else if age >= 13 {
-		fmt.Println("you are a teenager")
-	} else {
-		fmt.Println("you are a child")
+	// fmt.Println(person.name)
+
+	fmt.Printf("This is our person: %+v\n", person)
+
+	employee := struct {
+		name string
+		id   int
+		age  int
+	}{
+		name: "David",
+		id:   123,
+		age:  21,
 	}
 
-	day := "Friday"
+	fmt.Println(employee)
 
-	switch day {
-	case "Monday":
-		fmt.Println("It's Monday!")
-	case "Tuesday", "Wednesday", "Thursday":
-		fmt.Println("It's midweek")
-	case "Friday":
-		fmt.Println("TGIF")
-		fallthrough
-	default:
-		fmt.Println("It's the weekend")
+	type Address struct {
+		street string
+		city   string
 	}
 
-	// loops
-
-	// for loops
-
-	// for i := 0; i < 5; i++ {
-	// 	fmt.Printf("this is i: %d\n", i)
-	// }
-
-	// for i := range 5 {
-	// 	fmt.Printf("this is i: %d\n", i)
-	// }
-
-	// while loops
-
-	// i := 0
-
-	// for i < 5 {
-	// 	// fmt.Printf("this is i: %d\n", i)
-	// 	fmt.Println("this is the counter", i)
-	// 	i++
-	// }
-
-	// i := 0
-
-	// for {
-	// 	if i > 5 {
-	// 		break
-	// 	}
-	// 	fmt.Println("The counter is", i)
-	// 	i++
-	// }
-
-	// Arrays
-
-	numbers := [5]int{10, 20, 30, 40, 50}
-	// numbers[5] = 60     // can't do this
-
-	// fmt.Printf("this is our array: %v\n", numbers)
-	// // fmt.Println("this is our array", numbers)
-
-	// fmt.Printf("The length of the array is: %d\n", len(numbers))
-
-	// fmt.Println("The last number in the array is", numbers[len(numbers)-1])
-
-	// matrix := [2][3]int{
-	// 	{1, 2, 3},
-	// 	{4, 5, 6},
-	// }
-
-	// fmt.Printf("%v\n", matrix)
-	// fmt.Println(matrix)
-
-	// Slices - dynamtic arrays
-
-	allNumbers := numbers[:] // a copy of numbers, but now we can add more to it(aka we can now append to arrays, well to the copied array - allNumbers)
-
-	firstThree := numbers[0:3]
-
-	fmt.Println("all the numbers", allNumbers)
-	fmt.Println("the first three numbers", firstThree)
-
-	fmt.Println("i added some numbers")
-
-	fruits := []string{"apple", "banana", "straberry"}
-	fmt.Println("these are my fruits", fruits)
-
-	fruits = append(fruits, "kiwi")
-
-	fmt.Println("these are my fruits", fruits)
-
-	fruits = append(fruits, "kiwi", "mango", "pineapple")
-
-	fmt.Println("these are my fruits", fruits)
-
-	for index, value := range numbers {
-		fmt.Println(index, value)
+	type Contact struct {
+		name    string
+		address Address
+		phone   string
 	}
 
-	// Maps - hash
-
-	capitalCities := map[string]string{
-		"USA":   "Washington D.C",
-		"India": "New Delhi",
-		"UK":    "London",
+	contact := Contact{
+		name: "David",
+		address: Address{
+			street: "123 main street",
+			city:   "anytown",
+		},
+		phone: "123-123-1234",
 	}
 
-	// fmt.Println(capitalCities["USA"])
-	// fmt.Println(capitalCities["Germany"])
-	capital, exists := capitalCities["Germany"]
-	// for value := range capitalCities {
-	if exists {
-		fmt.Println("This is the capital", capital)
-	} else {
-		fmt.Printf("Does not exists\n")
-	}
+	fmt.Println(contact)
 
-	delete(capitalCities, "UK")
-	fmt.Println(capitalCities)
-	// }
+	// pointers and struct methods
+
+	// fmt.Println("name before:", person.name)
+
+	// modifyPersonName(&person)
+
+	// fmt.Println("name after", person.name)
+
+	x := 20
+
+	ptrX := &x
+
+	// Pointer arithmetic is not allowed in Go, so we remove ptrX + 1 usage.
+	// If you want to increment the value pointed to by ptrX:
+	*ptrX += 1
+
+	fmt.Println(*ptrX)
+
+	fmt.Println(person)
+
+	person.modifyPersonName()
+	person.modifyPersonAge()
+
+	fmt.Println(person)
 
 }
 
-func add(num1 int, num2 int) int {
-	return num1 + num2
+func (person *Person) modifyPersonAge() {
+	person.age = 21
+	// fmt.Println("inside scoop:", person.age)
 }
 
-func calculateSumAndProduct(a, b int) (int, int) {
-	return a + b, a * b
+// makes it so that modifyPersonName() is now a method in person
+func (person *Person) modifyPersonName() {
+	person.name = "David"
+	// fmt.Println("inside scoop: new name", person.name)
+}
+z
+func (p *Person) nameChange(name string) {
+	p.name = name
 }
