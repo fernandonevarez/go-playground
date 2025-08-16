@@ -5,85 +5,130 @@ import (
 )
 
 func main() {
-	// fmt.Println("Hello, world!")
+	age := 12
 
-	// variables
-	// var name string = "David"
+	if age >= 20 {
+		fmt.Println("you are an adult")
+	} else if age >= 13 {
+		fmt.Println("you are a teenager")
+	} else {
+		fmt.Println("you are a child")
+	}
 
-	// fmt.Printf("This is my name: %s\n", name)
+	day := "Friday"
 
-	// age := 27
+	switch day {
+	case "Monday":
+		fmt.Println("It's Monday!")
+	case "Tuesday", "Wednesday", "Thursday":
+		fmt.Println("It's midweek")
+	case "Friday":
+		fmt.Println("TGIF")
+		fallthrough
+	default:
+		fmt.Println("It's the weekend")
+	}
 
-	// fmt.Printf("my age is: %d\n", age)
+	// loops
 
-	// var city string
+	// for loops
 
-	// city = "Tempe"
-	// fmt.Printf("I live in $s\n", city)
+	// for i := 0; i < 5; i++ {
+	// 	fmt.Printf("this is i: %d\n", i)
+	// }
 
-	// var name, city string = "David", "Tempe"
+	// for i := range 5 {
+	// 	fmt.Printf("this is i: %d\n", i)
+	// }
 
-	// fmt.Printf("Hello, my name is %s and I live in %s\n", name, city)
+	// while loops
 
-	var (
-		name       string = "David"
-		age        int    = 21
-		city       string = "Tempe"
-		isEmployed bool   = true
-	)
+	// i := 0
 
-	fmt.Printf("Hello! My name is %s and i'm from %s. I'm %d year's old.\n", name, city, age)
-	fmt.Printf("It's %t that i got an internship this fall.\n", isEmployed)
+	// for i < 5 {
+	// 	// fmt.Printf("this is i: %d\n", i)
+	// 	fmt.Println("this is the counter", i)
+	// 	i++
+	// }
 
-	// Zero values
+	// i := 0
 
-	var defaultInt int
-	var defaultFloat float64
-	var defaultString string
-	var defaultBool bool
+	// for {
+	// 	if i > 5 {
+	// 		break
+	// 	}
+	// 	fmt.Println("The counter is", i)
+	// 	i++
+	// }
 
-	fmt.Printf("Int: %d\nFloat: %f\nString: %s\nBool: %t\n", defaultInt, defaultFloat, defaultString, defaultBool)
+	// Arrays
 
-	// const - can't change this variable
-	const pi = 3.14
+	numbers := [5]int{10, 20, 30, 40, 50}
+	// numbers[5] = 60     // can't do this
 
-	const (
-		monday    = 1
-		tuesday   = 2
-		wednesday = 3
-	)
+	// fmt.Printf("this is our array: %v\n", numbers)
+	// // fmt.Println("this is our array", numbers)
 
-	fmt.Printf("Monday: %d - Tuesday: %d - Wednesday: %d\n", monday, tuesday, wednesday)
+	// fmt.Printf("The length of the array is: %d\n", len(numbers))
 
-	const typedAge int = 25
+	// fmt.Println("The last number in the array is", numbers[len(numbers)-1])
 
-	const unTypedAge = 25
+	// matrix := [2][3]int{
+	// 	{1, 2, 3},
+	// 	{4, 5, 6},
+	// }
 
-	fmt.Println(typedAge == unTypedAge)
+	// fmt.Printf("%v\n", matrix)
+	// fmt.Println(matrix)
 
-	// emuns
+	// Slices - dynamtic arrays
 
-	const (
-		Jan int = iota + 1 // 1
-		Feb                // 2
-		Mar                // 3
-		Apr                // 4
-	)
+	allNumbers := numbers[:] // a copy of numbers, but now we can add more to it(aka we can now append to arrays, well to the copied array - allNumbers)
 
-	fmt.Printf("jan: %d - feb: %d - mar: %d - apr: %d\n", Jan, Feb, Mar, Apr)
+	firstThree := numbers[0:3]
 
-	const (
-		num1 int = 1
-		num2 int = 2
-	)
+	fmt.Println("all the numbers", allNumbers)
+	fmt.Println("the first three numbers", firstThree)
 
-	fmt.Printf("Total: %d\n", add(num1, num2))
-	// add(3, 4)
+	fmt.Println("i added some numbers")
 
-	sum, _ := calculateSumAndProduct(1, 1)
-	// sum, product := calculateSumAndProduct(1, 1)
+	fruits := []string{"apple", "banana", "straberry"}
+	fmt.Println("these are my fruits", fruits)
 
-	fmt.Printf("The sum is: %d\nThe product is: %d\n", sum, 0)
+	fruits = append(fruits, "kiwi")
+
+	fmt.Println("these are my fruits", fruits)
+
+	fruits = append(fruits, "kiwi", "mango", "pineapple")
+
+	fmt.Println("these are my fruits", fruits)
+
+	for index, value := range numbers {
+		fmt.Println(index, value)
+	}
+
+	// Maps - hash
+
+	capitalCities := map[string]string{
+		"USA":   "Washington D.C",
+		"India": "New Delhi",
+		"UK":    "London",
+	}
+
+	// fmt.Println(capitalCities["USA"])
+	// fmt.Println(capitalCities["Germany"])
+	capital, exists := capitalCities["Germany"]
+	// for value := range capitalCities {
+	if exists {
+		fmt.Println("This is the capital", capital)
+	} else {
+		fmt.Printf("Does not exists\n")
+	}
+
+	delete(capitalCities, "UK")
+	fmt.Println(capitalCities)
+	// }
+
 }
 
 func add(num1 int, num2 int) int {
