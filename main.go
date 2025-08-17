@@ -87,7 +87,7 @@ func (person *Person) modifyPersonName() {
 	person.name = "David"
 	// fmt.Println("inside scoop: new name", person.name)
 }
-z
+
 func (p *Person) nameChange(name string) {
 	p.name = name
 }
